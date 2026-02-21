@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sigfrid | Pitch DRAFT</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; background-color: #f4f7f6; color: #333; }
+        .hero-section { padding: 60px 0; background: #ffffff; }
+        .profile-img { 
+            width: 220px; height: 220px; object-fit: cover; 
+            border-radius: 50%; border: 6px solid #007bff;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+        }
+        .skill-card { 
+            border: none; 
+            border-radius: 15px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08); 
+            transition: transform 0.3s ease;
+            background: #fff;
+        }
+        .skill-card:hover { transform: translateY(-8px); }
+        .btn-social { width: 50px; height: 50px; line-height: 38px; border-radius: 50%; margin: 0 8px; font-size: 1.3rem; }
+        
+        /* WhatsApp Flutuante */
+        .whatsapp-float {
+            position: fixed; width: 60px; height: 60px; bottom: 40px; right: 40px;
+            background-color: #25d366; color: #FFF; border-radius: 50px;
+            text-align: center; font-size: 30px; box-shadow: 2px 4px 10px rgba(0,0,0,0.3); z-index: 1000;
+            display: flex; align-items: center; justify-content: center;
+            text-decoration: none;
+        }
+        .whatsapp-float:hover { color: #fff; background-color: #128c7e; }
+        .badge-tech { background-color: #6c757d; }
+        .badge-process { background-color: #007bff; }
+    </style>
+</head>
+<body>
+
+    <a href="https://wa.me/5547991884420" class="whatsapp-float" target="_blank">
+        <i class="fa-brands fa-whatsapp"></i>
+    </a>
+
+    <section class="hero-section text-center">
+        <div class="container">
+            <img src="/src/imagem/20250801_080840.jpg" alt="Sigfrid" class="profile-img mb-4">
+            <h1 class="fw-bold">Quem é Sigfrid?</h1>
+            <p class="lead mx-auto mb-4" style="max-width: 750px;">
+                Especialista em implantação de sistemas com sólida bagagem em levantamento de requisitos e análise de fluxos. Hoje, uno essa visão estratégica ao desenvolvimento Fullstack para criar soluções robustas e eficientes.
+            </p>
+            
+            <div class="d-flex justify-content-center">
+                <a href="https://www.linkedin.com/in/sigfrid-kleinschmidt-91a49295/" class="btn btn-outline-primary btn-social" target="_blank"><i class="fa-brands fa-linkedin-in"></i></a>
+                <a href="https://github.com/SKleinschmidt" class="btn btn-outline-dark btn-social" target="_blank"><i class="fa-brands fa-github"></i></a>
+                <a href="https://www.instagram.com/sigfrid_kleinschmidt" class="btn btn-outline-danger btn-social" target="_blank"><i class="fa-brands fa-instagram"></i></a>
+            </div>
+        </div>
+    </section>
+
+    <section class="py-5 bg-light">
+        <div class="container">
+            <div class="row g-4 text-center">
+                <div class="col-md-6">
+                    <div class="card h-100 skill-card p-4">
+                        <div class="card-body">
+                            <i class="fa-solid fa-gears fa-3x text-primary mb-3"></i>
+                            <h3 class="card-title h4 mb-4">Hard Skills</h3>
+                            
+                            <p class="small text-uppercase fw-bold text-muted mb-2">Análise e Implantação</p>
+                            <div class="d-flex flex-wrap justify-content-center gap-2 mb-4">
+                                <span class="badge badge-process p-2">Mapeamento de Fluxo</span>
+                                <span class="badge badge-process p-2">Levantamento de Requisitos</span>
+                                <span class="badge badge-process p-2">Implantação de Sistemas</span>
+                            </div>
+
+                            <p class="small text-uppercase fw-bold text-muted mb-2">Desenvolvimento</p>
+                            <div class="d-flex flex-wrap justify-content-center gap-2">
+                                <span class="badge badge-tech p-2">Java</span>
+                                <span class="badge badge-tech p-2">SpringBoot</span>
+                                <span class="badge badge-tech p-2">JavaScript</span>
+                                <span class="badge badge-tech p-2">HTML5</span>
+                                <span class="badge badge-tech p-2">CSS3</span>
+                                <span class="badge badge-tech p-2">Bootstrap 5</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="card h-100 skill-card p-4">
+                        <div class="card-body">
+                            <i class="fa-solid fa-brain fa-3x text-success mb-3"></i>
+                            <h3 class="card-title h4 mb-4">Soft Skills</h3>
+                            <ul class="list-unstyled text-muted">
+                                <li class="mb-2"><i class="fa-check text-success me-2"></i>Interativo</li>
+                                <li class="mb-2"><i class="fa-check text-success me-2"></i>Resolução de Problemas</li>
+                                <li class="mb-2"><i class="fa-check text-success me-2"></i>Trabalho em Equipe</li>
+                                <li class="mb-2"><i class="fa-check text-success me-2"></i>Adaptabilidade</li>
+                                <li class="mb-2"><i class="fa-check text-success me-2"></i>Flexibilidade</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="py-5 text-center bg-white border-top">
+        <p class="mb-1 text-dark fw-bold">Sigfrid | Participante DRAFT 2026</p>
+        <p class="text-muted small">ACATE | BLUSOFT | Polo Vale Europeu | Blumenau </p>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
