@@ -152,6 +152,24 @@ p{
   background:#ea580c;
   transform:translateY(-2px);
 }
+/* GITHUB - SEÇÃO PROJETOS */
+
+.github-projects-text{
+  font-weight:500;
+  color:#ea580c;
+  font-size:18px;
+}
+
+.github-projects-icon{
+  color:#ea580c;
+  font-size:32px;
+  transition:all 0.3s ease;
+}
+
+.github-projects-icon:hover{
+  color:var(--primary);
+  transform:translateY(-3px) scale(1.05);
+}
 
 /* IMPACT SECTION */
 
@@ -459,18 +477,18 @@ footer{
       </div>
     </div>
 
-    <!-- Link GitHub apenas com ícone (igual ao da seção Contato) -->
-    <div class="text-center mt-5">
-      <p class="lead d-flex justify-content-center align-items-center flex-wrap gap-3">
-        Para visualizar mais projetos acesse
-        <a href="https://github.com/SKleinschmidt" target="_blank" class="github-link">
-          <i class="fab fa-github"></i>
-        </a>
-      </p>
-    </div>
-  </div>
-</section>
-
+   <!-- Link GitHub Projetos -->
+<div class="text-center mt-5">
+  <p class="lead github-projects-text d-flex justify-content-center align-items-center flex-wrap gap-3">
+    Para visualizar mais projetos acesse
+    <a href="https://github.com/SKleinschmidt" 
+       target="_blank" 
+       class="github-projects-icon"
+       aria-label="GitHub Projetos">
+      <i class="fab fa-github"></i>
+    </a>
+  </p>
+</div>
 <!-- FRASE IMPACTO -->
 <section id="impact" class="impact-section text-center">
   <div class="container">
