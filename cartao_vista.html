@@ -2,22 +2,22 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Cartão Premium - Sigfrid</title>
+<title>Cartão Profissional - Sigfrid</title>
 
-<!-- Google Fonts Sofisticadas -->
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
 
 /* ===============================
-   CONFIGURAÇÃO SEGURA IMPRESSÃO
+   CONFIGURAÇÃO GRÁFICA PROFISSIONAL
+   TAMANHO FINAL: 90x50mm
+   COM SANGRIA: 96x56mm
 ================================ */
 
 @page {
-  size: 94mm 54mm;
+  size: 96mm 56mm;
   margin: 0;
 }
 
@@ -26,37 +26,45 @@
 }
 
 body{
-  background:#eef2f7;
+  margin:0;
+  background:#e5e7eb;
   font-family:'Inter', sans-serif;
   display:flex;
   flex-direction:column;
   align-items:center;
   gap:40px;
   padding:30px;
-  margin:0;
 }
 
 /* ===============================
-   BASE DO CARTÃO
+   BASE DO CARTÃO COM SANGRIA
 ================================ */
 
 .card{
-  width:90mm;
-  height:50mm;
-  border-radius:3px;
-  overflow:hidden;
-  display:flex;
+  width:96mm;
+  height:56mm;
   position:relative;
+  overflow:hidden;
   page-break-after:always;
 }
 
+/* ÁREA SEGURA INTERNA */
+.safe-area{
+  position:absolute;
+  inset:4mm; /* margem de segurança */
+  display:flex;
+}
+
 /* ===============================
-   FRENTE PREMIUM
+   FRENTE
 ================================ */
 
 .frente{
   background:#0F172A;
   color:white;
+}
+
+.frente .safe-area{
   align-items:center;
   justify-content:center;
   flex-direction:column;
@@ -67,43 +75,54 @@ body{
   content:"";
   position:absolute;
   bottom:0;
+  left:0;
   width:100%;
-  height:3mm;
+  height:4mm; /* passa da área segura */
   background:#F97316;
 }
 
 .name{
   font-family:'Space Grotesk', sans-serif;
-  font-size:24px;
+  font-size:26px;
   font-weight:700;
-  letter-spacing:-0.5px;
+  letter-spacing:-0.8px;
   margin:0;
 }
 
 .subtitle{
   margin-top:8px;
-  font-size:12px;
+  font-size:11px;
   text-transform:uppercase;
-  letter-spacing:2px;
+  letter-spacing:1.2px;
   color:#F97316;
   font-weight:500;
 }
 
 /* ===============================
-   VERSO PREMIUM
+   VERSO
 ================================ */
 
 .verso{
   background:#0F172A;
   color:white;
-  display:flex;
+}
+
+.verso .safe-area{
   align-items:center;
   justify-content:space-between;
-  padding:14px 18px;
+}
+
+/* leve profundidade premium */
+.verso::before{
+  content:"";
+  position:absolute;
+  inset:0;
+  background:radial-gradient(circle at 85% 20%, rgba(249,115,22,0.08), transparent 60%);
+  pointer-events:none;
 }
 
 .skills{
-  width:60%;
+  width:58%;
 }
 
 .skills-title{
@@ -119,7 +138,7 @@ body{
   list-style:none;
   padding:0;
   margin:0;
-  font-size:8.5px;
+  font-size:9px;
   columns:2;
 }
 
@@ -140,7 +159,7 @@ body{
 ================================ */
 
 .qr-area{
-  width:35%;
+  width:30%;
   text-align:center;
 }
 
@@ -158,7 +177,7 @@ body{
 }
 
 /* ===============================
-   BOTÃO PRINT
+   BOTÃO (NÃO IMPRIME)
 ================================ */
 
 .btn-print{
@@ -169,7 +188,6 @@ body{
   border-radius:6px;
   font-weight:600;
   cursor:pointer;
-  font-family:'Inter', sans-serif;
   box-shadow:0 5px 15px rgba(0,0,0,0.15);
 }
 
@@ -178,10 +196,11 @@ body{
 }
 
 /* ===============================
-   PRINT SETTINGS
+   CONFIGURAÇÃO IMPRESSÃO
 ================================ */
 
 @media print{
+
   body{
     background:none;
     padding:0;
@@ -191,9 +210,6 @@ body{
     display:none;
   }
 
-  .card{
-    box-shadow:none;
-  }
 }
 
 </style>
@@ -202,42 +218,47 @@ body{
 <body>
 
 <button class="btn-print" onclick="window.print()">
-  <i class="fa-solid fa-print"></i> IMPRIMIR PARA O DRAFT
+  <i class="fa-solid fa-print"></i> Gerar PDF para Impressão
 </button>
 
 <!-- ===============================
      FRENTE
 ================================ -->
+
 <div class="card frente">
-  <h1 class="name">Sigfrid Kleinschmidt</h1>
-  <p></p>
-  <div class="subtitle">O Código não faz milagre sem processo</div>
+  <div class="safe-area">
+    <h1 class="name">Sigfrid Kleinschmidt</h1>
+    <div class="subtitle">O Código não faz milagre sem processo</div>
+  </div>
 </div>
 
 <!-- ===============================
      VERSO
 ================================ -->
+
 <div class="card verso">
+  <div class="safe-area">
 
-  <div class="skills">
-    <div class="skills-title">Competências</div>
-    <ul class="skills-list">
-      <li><i class="fa-solid fa-circle"></i> Java / Spring Boot</li>
-      <li><i class="fa-solid fa-circle"></i> APIs REST</li>
-      <li><i class="fa-solid fa-circle"></i> JavaScript</li>
-      <li><i class="fa-solid fa-circle"></i> HTML & CSS</li>
-      <li><i class="fa-solid fa-circle"></i> Git & GitHub</li>
-      <li><i class="fa-solid fa-circle"></i> MySQL</li>
-      <li><i class="fa-solid fa-circle"></i> Levant. Requisitos</li>
-      <li><i class="fa-solid fa-circle"></i> Fluxo Operacional</li>
-    </ul>
+    <div class="skills">
+      <div class="skills-title">Competências</div>
+      <ul class="skills-list">
+        <li><i class="fa-solid fa-circle"></i> Java / Spring Boot</li>
+        <li><i class="fa-solid fa-circle"></i> APIs REST</li>
+        <li><i class="fa-solid fa-circle"></i> JavaScript</li>
+        <li><i class="fa-solid fa-circle"></i> HTML & CSS</li>
+        <li><i class="fa-solid fa-circle"></i> Git & GitHub</li>
+        <li><i class="fa-solid fa-circle"></i> MySQL</li>
+        <li><i class="fa-solid fa-circle"></i> Levantamento de Requisitos</li>
+        <li><i class="fa-solid fa-circle"></i> Fluxo Operacional</li>
+      </ul>
+    </div>
+
+    <div class="qr-area">
+      <div id="qrcode" class="qr-box"></div>
+      <div class="qr-label">ACESSE O SITE</div>
+    </div>
+
   </div>
-
-  <div class="qr-area">
-    <div id="qrcode" class="qr-box"></div>
-    <div class="qr-label">ACESSE SITE</div>
-  </div>
-
 </div>
 
 <script>
@@ -246,8 +267,8 @@ const urlLandingPage = "https://skleinschmidt.github.io/Picht24_02_26/";
 
 new QRCode(document.getElementById("qrcode"), {
     text: urlLandingPage,
-    width: 75,
-    height: 75,
+    width: 80,
+    height: 80,
     colorDark: "#0B3C49",
     colorLight: "#ffffff",
     correctLevel: QRCode.CorrectLevel.H
