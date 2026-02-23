@@ -6,123 +6,217 @@
 <title>Sigfrid | Desenvolvedor Java</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 <link rel="icon" type="image/png" href="favicon.png">
 
 <style>
 
-body{
-  background:#f8fafc;
-  color:#0F172A;
-  scroll-behavior:smooth;
-  font-family:'Segoe UI',sans-serif;
+:root{
+  --primary:#0B3C49;
+  --accent:#F97316;
+  --dark:#0F172A;
+  --muted:#64748B;
+  --light:#F8FAFC;
+  --card-shadow: 0 20px 40px rgba(15, 23, 42, 0.06);
 }
 
-/* NAVBAR */
-.navbar{
-  background:#0B3C49 !important;
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
 }
+
+body{
+  background:var(--light);
+  color:var(--dark);
+  scroll-behavior:smooth;
+  font-family:'Inter', sans-serif;
+  line-height:1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* TIPOGRAFIA PREMIUM */
+
+h1{
+  font-weight:900;
+  font-size:52px;
+  letter-spacing:-1.5px;
+  line-height:1.1;
+}
+
+h2{
+  font-weight:800;
+  font-size:36px;
+  letter-spacing:-0.8px;
+}
+
+h5{
+  font-weight:600;
+  font-size:18px;
+  letter-spacing:-0.3px;
+}
+
+p{
+  color:var(--muted);
+  font-weight:400;
+  font-size:16px;
+}
+
+.section-title{
+  margin-bottom:60px;
+}
+
+.title-orange{
+  color:var(--accent);
+}
+
+.title-blue{
+  color:var(--primary);
+}
+
+/* NAVBAR PREMIUM */
+
+.navbar{
+  background:rgba(11,60,73,0.95) !important;
+  backdrop-filter: blur(10px);
+  padding:20px 0;
+  transition:0.3s;
+}
+
 .navbar a{
   color:white !important;
   font-weight:500;
+  letter-spacing:0.3px;
 }
 
 /* HERO */
+
 .hero{
-  background: 
-    linear-gradient(rgba(11, 60, 73, 0.85), rgba(11, 60, 73, 0.85)),
+  background:
+    linear-gradient(rgba(11,60,73,0.85), rgba(11,60,73,0.85)),
     url("src/imagem/hero-bg.jpg") center/cover no-repeat;
   color:white;
-  padding:140px 0;
+  padding:180px 0 140px 0;
 }
 
-/* TITULOS */
-.section-title{
-  font-weight:700;
-  margin-bottom:40px;
+.hero .container{
+  max-width:850px;
 }
-.title-orange{ color:#F97316; }
-.title-blue{ color:#0B3C49; }
+
+.hero p{
+  color:#E2E8F0;
+  font-size:20px;
+  font-weight:400;
+}
 
 /* IMAGEM */
+
 .profile-img{
-  width: 300px;
-  height: 300px;
-  object-fit: cover;
-  border-radius: 10px;
+  width:280px;
+  height:280px;
+  object-fit:cover;
+  border-radius:16px;
+  box-shadow:var(--card-shadow);
 }
 
-/* CARDS */
+/* CARDS PREMIUM */
+
 .custom-card{
   background:white;
-  padding:30px;
-  border-radius:10px;
-  border:1px solid #E2E8F0;
+  padding:35px;
+  border-radius:18px;
+  border:none;
+  box-shadow:var(--card-shadow);
+  transition:all 0.3s ease;
+  height:100%;
+}
+
+.custom-card:hover{
+  transform:translateY(-6px);
+  box-shadow:0 25px 50px rgba(15,23,42,0.08);
+}
+
+/* BOTÃO */
+
+.btn-custom{
+  background:var(--accent);
+  border:none;
+  padding:12px 24px;
+  font-weight:600;
+  border-radius:12px;
   transition:0.3s;
 }
-.custom-card:hover{
-  transform:translateY(-4px);
-}
-/* Botão do link git page*/
-.btn-custom {
-  background-color: #F97316;
-  color: white;
-  border: none;
+
+.btn-custom:hover{
+  background:#ea580c;
+  transform:translateY(-2px);
 }
 
-.btn-custom:hover {
-  background-color: #ea580c;
-  color: white;
-}
+/* IMPACT SECTION */
 
-/* FRASE IMPACTO */
 .impact-section{
-  padding:80px 0;
+  padding:100px 0;
   background:#F0F9FF;
 }
+
 .impact-section h2{
-  color:#F97316;
+  color:var(--accent);
+  font-weight:800;
 }
 
-/* Ícones sociais (Contato e GitHub botão) */
+.impact-section p{
+  font-size:20px;
+}
+
+/* SOCIAL */
+
 .social-icons a,
-.github-link {
-  color:#0F172A;
-  font-size:38px;
+.github-link{
+  color:var(--dark);
+  font-size:34px;
   transition:0.3s;
 }
+
 .social-icons a:hover,
-.github-link:hover {
-  color:#0B3C49;
+.github-link:hover{
+  color:var(--primary);
+  transform:translateY(-3px);
 }
 
-/* RODAPÉ */
+/* FOOTER */
+
 footer{
-  background:#0B3C49;
+  background:var(--primary);
   color:white;
-  padding:30px 0;
-  text-align:center;
+  padding:40px 0;
+  font-weight:500;
 }
 
 /* WHATSAPP */
+
 .whatsapp-float{
   position:fixed;
-  bottom:25px;
-  right:25px;
-  width:65px;
-  height:65px;
-  background:#25D366;
+  width:60px;
+  height:60px;
+  bottom:40px;
+  right:40px;
+  background:#25d366;
+  color:white;
   border-radius:50%;
   display:flex;
   align-items:center;
   justify-content:center;
-  color:white;
-  font-size:32px;
-  box-shadow:0 8px 20px rgba(0,0,0,0.3);
-  z-index:1000;
+  font-size:28px;
+  box-shadow:0 10px 25px rgba(0,0,0,0.2);
+  transition:0.3s;
+  animation: vibrar 10s infinite;
 }
+
 .whatsapp-float:hover{
-  transform:scale(1.1);
+  background:#128c7e;
+  animation: none; 
+  
 }
 @keyframes vibrar {
   0%, 90%, 100% { transform: scale(1); }
@@ -133,18 +227,26 @@ footer{
   }
 
 /* RESPONSIVO */
+
 @media(max-width:768px){
-  .hero{ padding:80px 0; }
-  .profile-img {
-    width: 250px;
-    height: 250px;
+
+  h1{
+    font-size:36px;
   }
-  .social-icons a,
-  .github-link {
-    font-size:32px;
+
+  h2{
+    font-size:28px;
+  }
+
+  .hero{
+    padding:120px 0 100px 0;
+  }
+
+  .profile-img{
+    width:220px;
+    height:220px;
   }
 }
-
 </style>
 </head>
 <body>
@@ -187,8 +289,8 @@ footer{
         <img src="src/imagem/20250801_080840.jpg" class="profile-img" alt="Foto Sigfrid">
       </div>
       <div class="col-lg-7">
-        <p>Com 15 anos de experiência na indústria, atuando com fluxos, processos e pessoas; comunição assertiva e gestão operacional são resultados desta longa jornada.</p>
-        <p>Hoje, direcionando essa experiência para o desenvolvimento Java Back-end e Spring Boot, criando soluções que unem tecnologia e negócio.</p>
+        <p>Com 15 anos de experiência na indústria, atuando com fluxos, processos e pessoas; comunicação assertiva e gestão operacional são resultados desta longa jornada.</p>
+        <p>Hoje, direcionando essa experiência para o desenvolvimento Java Back-end e Front-end, criando soluções que unem tecnologia e negócio.</p>
       </div>
     </div>
   </div>
@@ -214,7 +316,7 @@ footer{
       <div class="col-md-4">
         <div class="custom-card text-center">
           <h5 class="text-uppercase fw-bold">Autodidata</h5>
-          <p>Melhoria é continua</p>
+          <p>Melhoria é contínua</p>
         </div>
       </div>
       <div class="col-md-4">
@@ -283,7 +385,7 @@ footer{
       </div>
       <div class="col-md-4">
         <div class="custom-card text-center">
-          <h5 class="text-uppercase fw-bold">Implatação de Sistema</h5>
+          <h5 class="text-uppercase fw-bold">Implantação de Sistema</h5>
           <p>Colocar a solução em prática, da configuração ao uso final</p>
         </div>
       </div>
@@ -330,7 +432,7 @@ footer{
         <div class="custom-card">
           <h5>Por que gastar horas no que pode ser feito em segundos! </h5>
           <p></p>
-          <p>Este projeto em JavaScript nasceu da necessidade do empeendedor otimizar tempo.
+          <p>Este projeto em JavaScript nasceu da necessidade do empreendedor otimizar tempo.
             O sistema elimina a curva de aprendizado de editores de imagem, transformando dados em divulgação de forma instantânea;
             garantindo que o empreendedor foque no que importa: o seu produto.
           </p>
@@ -341,7 +443,7 @@ footer{
           class="btn btn-custom mt-2">Acessar Cardápio</a>
           <p></p>
 
-          <h6>Tecnologia utlizadas</h6>
+          <h6>Tecnologia utilizadas</h6>
           <p>JavaScript vanilla | CSS3 | Bootstrap 5 | HTML 5</p>
         </div>
       </div>
@@ -361,7 +463,7 @@ footer{
     <div class="text-center mt-5">
       <p class="lead d-flex justify-content-center align-items-center flex-wrap gap-3">
         Para visualizar mais projetos acesse
-        <a href="https://github.com/seu-usuario" target="_blank" class="github-link">
+        <a href="https://github.com/SKleinschmidt" target="_blank" class="github-link">
           <i class="fab fa-github"></i>
         </a>
       </p>
