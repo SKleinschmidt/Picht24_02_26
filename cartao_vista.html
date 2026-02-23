@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Cartão de Visita Sigfrid - Minimalista</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <style>
+        /* --- CONFIGURAÇÕES DE IMPRESSÃO --- */
+        @page { size: 94mm 54mm; margin: 0; }
+
+        body { 
+            background-color: #f0f0f0; 
+            font-family: 'Segoe UI', Arial, sans-serif; 
+            display: flex; flex-direction: column; align-items: center; gap: 30px; padding: 20px; margin: 0;
+        }
+
+        .card {
+            width: 90mm; height: 50mm;
+            background-color: white;
+            border-radius: 2px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            border: 1px solid #eee;
+            page-break-after: always;
+        }
+
+        /* --- FRENTE (LIMPA) --- */
+        .frente { background-color: #ffffff; align-items: center; justify-content: center; }
+        
+        .sidebar-frente { position: absolute; left: 0; top: 0; width: 6mm; background-color: #007bff; height: 100%; }
+
+        .content-frente { text-align: center; z-index: 1; }
+        .name { font-size: 28px; font-weight: 800; color: #333; margin: 0; letter-spacing: -0.5px; }
+        .subtitle { font-size: 14px; color: #007bff; font-weight: 600; margin-top: 10px; text-transform: uppercase; letter-spacing: 2px; }
+
+        /* --- VERSO --- */
+        .verso { background-color: #007bff; color: white; }
+
+        .content-verso { display: flex; width: 100%; height: 100%; align-items: center; padding: 0; }
+
+        .skills-area { width: 65%; padding: 20px; }
+        .skills-title { font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.3); display: inline-block; }
+        .skills-list { font-size: 8.5px; list-style: none; padding: 0; margin: 0; columns: 2; line-height: 1.5; }
+        .skills-list li { margin-bottom: 3px; display: flex; align-items: center; }
+        .skills-list i { font-size: 7px; margin-right: 5px; opacity: 0.8; }
+
+        .qr-area {
+            width: 35%;
+            background-color: white;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #333;
+        }
+
+        .qr-box { 
+            padding: 5px; 
+            background: white;
+            animation: vibrar 10s infinite;
+        }
+
+        .qr-label { font-size: 7px; font-weight: bold; margin-top: 10px; color: #007bff; text-align: center; line-height: 1.2; }
+
+        @keyframes vibrar {
+            0%, 90%, 100% { transform: scale(1); }
+            92% { transform: scale(1.08) rotate(2deg); }
+            94% { transform: scale(1.08) rotate(-2deg); }
+            96% { transform: scale(1.08) rotate(2deg); }
+            98% { transform: scale(1.08) rotate(-2deg); }
+        }
+
+        .btn-print {
+            padding: 12px 25px; background-color: #007bff; color: white;
+            border: none; border-radius: 5px; cursor: pointer; font-weight: bold;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        @media print { 
+            .btn-print { display: none; } 
+            body { background: none; padding: 0; }
+            .card { box-shadow: none; border: none; margin: 0; }
+        }
+    </style>
+</head>
+<body>
+
+    <button class="btn-print" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> IMPRIMIR PARA O DRAFT
+    </button>
+
+    <div class="card frente">
+        <div class="sidebar-frente"></div>
+        <div class="content-frente">
+            <h1 class="name">Sigfrid Kleinschmidt</h1>
+            <div class="subtitle">Desenvolvedor Java Júnior</div>
+        </div>
+    </div>
+
+    <div class="card verso">
+        <div class="content-verso">
+            <div class="skills-area">
+                <div class="skills-title">Diferenciais e Competências</div>
+                <ul class="skills-list">
+                    <li><i class="fa-solid fa-check"></i> Java / Spring</li>
+                    <li><i class="fa-solid fa-check"></i> JavaScript / HTML</li>
+                    <li><i class="fa-solid fa-check"></i> APIs REST</li>
+                    <li><i class="fa-solid fa-check"></i> Git / GitHub</li>
+                    <li><i class="fa-solid fa-check"></i> Fluxo Têxtil</li>
+                    <li><i class="fa-solid fa-check"></i> Fluxo Operac.</li>
+                    <li><i class="fa-solid fa-check"></i> Trab. em Equipe</li>
+                    <li><i class="fa-solid fa-check"></i> Resolução Probl.</li>
+                    <li><i class="fa-solid fa-check"></i> Adaptabilidade</li>
+                    <li><i class="fa-solid fa-check"></i> Interatividade</li>
+                </ul>
+                <p style="font-size: 7px; margin-top: 12px; opacity: 0.8; letter-spacing: 0.2px;">
+                    15 ANOS DE TRAJETÓRIA EM EMPRESA CENTENÁRIA.
+                </p>
+            </div>
+            
+            <div class="qr-area">
+                <div id="qrcode" class="qr-box"></div>
+                <div class="qr-label">ESCANEIE E VEJA O<br>MEU PORTFÓLIO</div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // O QR Code aponta para a sua Landing Page
+        const urlLandingPage = "https://skleinschmidt.github.io/"; 
+
+        new QRCode(document.getElementById("qrcode"), {
+            text: urlLandingPage,
+            width: 75,
+            height: 75,
+            colorDark: "#007bff",
+            colorLight: "#ffffff",
+            correctLevel: QRCode.CorrectLevel.H
+        });
+    </script>
+</body>
+</html>
