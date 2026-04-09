@@ -2,279 +2,256 @@
 <html lang="pt-br">
 <head>
 <meta charset="UTF-8">
-<title>Cartão Profissional - Sigfrid</title>
+<title>Editor Pro - Sigfrid</title>
 
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@600;700&family=Inter:wght@400;500&family=Roboto+Mono&family=Montserrat:wght@700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 
 <style>
+@page { size: 96mm 56mm; margin: 0; }
+*{ box-sizing:border-box; }
+body{ margin:0; background:#f1f5f9; font-family:'Inter', sans-serif; display:flex; flex-direction:column; align-items:center; padding:20px; }
 
-/* ===============================
-   CONFIGURAÇÃO GRÁFICA PROFISSIONAL
-   TAMANHO FINAL: 90x50mm
-   COM SANGRIA: 96x56mm
-================================ */
-
-@page {
-  size: 96mm 56mm;
-  margin: 0;
+/* BOTÕES DE CONTROLE SUPERIORES */
+.top-controls {
+  display: flex;
+  gap: 15px;
+  margin-bottom: 30px;
 }
 
-*{
-  box-sizing:border-box;
+.btn-toggle, .btn-print-main {
+  padding: 12px 20px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  transition: 0.3s;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-body{
-  margin:0;
-  background:#e5e7eb;
-  font-family:'Inter', sans-serif;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:40px;
-  padding:30px;
+.btn-toggle { background: #0F172A; color: white; }
+.btn-toggle:hover { background: #1e293b; }
+.btn-print-main { background: #F97316; color: white; }
+.btn-print-main:hover { background: #ea580c; }
+
+/* PAINEL DE EDIÇÃO (OCULTO POR PADRÃO) */
+.editor-container {
+  display: none; /* Estado Inicial */
+  background: white; padding: 20px; border-radius: 12px; box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+  margin-bottom: 30px; width: 100%; max-width: 850px; grid-template-columns: 1fr 1fr; gap: 20px;
+  border: 1px solid #e2e8f0;
 }
 
-/* ===============================
-   BASE DO CARTÃO COM SANGRIA
-================================ */
-
-.card{
-  width:96mm;
-  height:56mm;
-  position:relative;
-  overflow:hidden;
-  page-break-after:always;
+/* Classe para mostrar o painel via JS */
+.editor-container.active {
+  display: grid;
 }
 
-/* ÁREA SEGURA INTERNA */
-.safe-area{
-  position:absolute;
-  inset:4mm; /* margem de segurança */
-  display:flex;
+.input-group { margin-bottom: 12px; }
+.input-group label { display: block; font-size: 11px; font-weight: 600; text-transform: uppercase; color: #64748b; margin-bottom: 4px; }
+.input-group input, .input-group select, .input-group textarea { width: 100%; padding: 8px; border: 1px solid #cbd5e1; border-radius: 6px; font-family: inherit; }
+
+/* ESTILOS DINÂMICOS DO CARTÃO */
+:root {
+  --bg-color: #0F172A;
+  --accent-color: #F97316;
+  --font-main: 'Space Grotesk';
 }
 
-/* ===============================
-   FRENTE
-================================ */
-
-.frente{
-  background:#0F172A;
-  color:white;
+.card {
+  width:96mm; height:56mm; position:relative; overflow:hidden; flex-shrink: 0;
+  background: var(--bg-color); color: white; margin-bottom: 20px;
 }
+.safe-area { position:absolute; inset:4mm; display:flex; transition: 0.3s; }
 
-.frente .safe-area{
-  align-items:center;
-  justify-content:center;
-  flex-direction:column;
-  text-align:center;
+/* FRENTE */
+.frente .safe-area { align-items:center; justify-content:center; flex-direction:column; text-align:center; }
+.frente::after { content:""; position:absolute; bottom:0; left:0; width:100%; height:4mm; background: var(--accent-color); }
+.name { font-family: var(--font-main), sans-serif; font-size:26px; font-weight:700; margin:0; }
+.subtitle { margin-top:8px; font-size:11px; text-transform:uppercase; color: var(--accent-color); font-weight:500; }
+
+/* VERSO */
+.verso .safe-area { align-items:center; justify-content:space-between; }
+.skills { width:60%; }
+.skills-title { 
+    font-family: var(--font-main), sans-serif; 
+    font-size:10px; text-transform:uppercase; 
+    letter-spacing:1.5px; color: var(--accent-color); 
+    margin-bottom:8px; font-weight: 700;
 }
+.skills-list { list-style:none; padding:0; margin:0; font-size:9px; columns:2; column-gap: 10px; }
+.skills-list li { margin-bottom:4px; display:flex; align-items:center; break-inside: avoid; }
+.skills-list i { color: var(--accent-color); font-size:6px; margin-right:5px; flex-shrink: 0; }
 
-.frente::after{
-  content:"";
-  position:absolute;
-  bottom:0;
-  left:0;
-  width:100%;
-  height:4mm; /* passa da área segura */
-  background:#F97316;
+/* QR CODES */
+.qr-container { 
+  display: flex; flex-direction: column; gap: 8px; width: 30%; 
+  justify-content: center; align-items: center; 
 }
+.qr-box { background:white; padding:5px; border-radius:4px; line-height: 0; }
+.qr-item { text-align: center; }
+.qr-label { font-size:6px; margin-top:4px; color:#94A3B8; letter-spacing: 1px; }
 
-.name{
-  font-family:'Space Grotesk', sans-serif;
-  font-size:26px;
-  font-weight:700;
-  letter-spacing:-0.8px;
-  margin:0;
+@media print { 
+  .editor-container, .top-controls { display: none !important; } 
+  .card { box-shadow: none; page-break-after: always; margin: 0; } 
 }
-
-.subtitle{
-  margin-top:8px;
-  font-size:11px;
-  text-transform:uppercase;
-  letter-spacing:1.2px;
-  color:#F97316;
-  font-weight:500;
-}
-
-/* ===============================
-   VERSO
-================================ */
-
-.verso{
-  background:#0F172A;
-  color:white;
-}
-
-.verso .safe-area{
-  align-items:center;
-  justify-content:space-between;
-}
-
-/* leve profundidade premium */
-.verso::before{
-  content:"";
-  position:absolute;
-  inset:0;
-  background:radial-gradient(circle at 85% 20%, rgba(249,115,22,0.08), transparent 60%);
-  pointer-events:none;
-}
-
-.skills{
-  width:58%;
-}
-
-.skills-title{
-  font-family:'Space Grotesk', sans-serif;
-  font-size:10px;
-  text-transform:uppercase;
-  letter-spacing:1.5px;
-  color:#F97316;
-  margin-bottom:6px;
-}
-
-.skills-list{
-  list-style:none;
-  padding:0;
-  margin:0;
-  font-size:9px;
-  columns:2;
-}
-
-.skills-list li{
-  margin-bottom:3px;
-  display:flex;
-  align-items:center;
-}
-
-.skills-list i{
-  color:#F97316;
-  font-size:6px;
-  margin-right:5px;
-}
-
-/* ===============================
-   QR CODE
-================================ */
-
-.qr-area{
-  width:30%;
-  text-align:center;
-}
-
-.qr-box{
-  background:white;
-  padding:6px;
-  border-radius:4px;
-}
-
-.qr-label{
-  font-size:7px;
-  margin-top:6px;
-  color:#94A3B8;
-  letter-spacing:1px;
-}
-
-/* ===============================
-   BOTÃO (NÃO IMPRIME)
-================================ */
-
-.btn-print{
-  padding:12px 25px;
-  background:#F97316;
-  color:white;
-  border:none;
-  border-radius:6px;
-  font-weight:600;
-  cursor:pointer;
-  box-shadow:0 5px 15px rgba(0,0,0,0.15);
-}
-
-.btn-print:hover{
-  background:#ea580c;
-}
-
-/* ===============================
-   CONFIGURAÇÃO IMPRESSÃO
-================================ */
-
-@media print{
-
-  body{
-    background:none;
-    padding:0;
-  }
-
-  .btn-print{
-    display:none;
-  }
-
-}
-
 </style>
 </head>
-
 <body>
 
-<button class="btn-print" onclick="window.print()">
-  <i class="fa-solid fa-print"></i> Gerar PDF para Impressão
-</button>
+<div class="top-controls">
+    <button class="btn-toggle" onclick="toggleEditor()">
+        <i class="fa-solid fa-sliders"></i> Painel de Edição
+    </button>
+    <button class="btn-print-main" onclick="window.print()">
+        <i class="fa-solid fa-print"></i> Imprimir Cartão
+    </button>
+</div>
 
-<!-- ===============================
-     FRENTE
-================================ -->
+<div class="editor-container" id="editorPanel">
+  <div class="col">
+    <h3><i class="fa-solid fa-palette"></i> Design</h3>
+    <div class="input-group">
+      <label>Cor de Fundo</label>
+      <input type="color" id="cp-bg" value="#0F172A" oninput="updateStyles()">
+    </div>
+    <div class="input-group">
+      <label>Cor de Destaque</label>
+      <input type="color" id="cp-accent" value="#F97316" oninput="updateStyles()">
+    </div>
+    <div class="input-group">
+      <label>Tipografia</label>
+      <select id="sel-font" onchange="updateStyles()">
+        <option value="'Space Grotesk'">Space Grotesk (Tech)</option>
+        <option value="'Montserrat'">Montserrat (Moderno)</option>
+        <option value="'Roboto Mono'">Roboto Mono (Code)</option>
+        <option value="'Playfair Display'">Playfair Display (Elegante)</option>
+      </select>
+    </div>
+    <div class="input-group">
+      <label>Posição do QR Code</label>
+      <select id="sel-align" onchange="updateStyles()">
+        <option value="row">Direita (Padrão)</option>
+        <option value="row-reverse">Esquerda</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="col">
+    <h3><i class="fa-solid fa-pen-nib"></i> Conteúdo</h3>
+    <div class="input-group">
+      <label>Nome</label>
+      <input type="text" id="in-name" value="Sigfrid Kleinschmidt" oninput="sync()">
+    </div>
+    <div class="input-group">
+        <label>Competências (uma por linha)</label>
+        <textarea id="in-skills-list" rows="5" oninput="sync()">Java / Spring Boot
+APIs REST
+JavaScript
+HTML & CSS
+Git & GitHub
+MySQL
+Levantamento de Requisitos
+Fluxo Operacional</textarea>
+    </div>
+    <div class="input-group">
+      <label>URLs dos QR Codes</label>
+      <input type="text" id="qr1-url" value="https://skleinschmidt.github.io/Picht24_02_26/" onchange="generateQRs()" style="margin-bottom: 5px;">
+      <input type="text" id="qr2-url" placeholder="URL opcional" onchange="generateQRs()">
+    </div>
+  </div>
+</div>
 
 <div class="card frente">
   <div class="safe-area">
-    <h1 class="name">Sigfrid Kleinschmidt</h1>
+    <h1 class="name" id="out-name">Sigfrid Kleinschmidt</h1>
     <div class="subtitle">O Código não faz milagre sem processo</div>
   </div>
 </div>
 
-<!-- ===============================
-     VERSO
-================================ -->
-
 <div class="card verso">
-  <div class="safe-area">
-
+  <div class="safe-area" id="verso-layout">
     <div class="skills">
-      <div class="skills-title">Competências</div>
-      <ul class="skills-list">
-        <li><i class="fa-solid fa-circle"></i> Java / Spring Boot</li>
-        <li><i class="fa-solid fa-circle"></i> APIs REST</li>
-        <li><i class="fa-solid fa-circle"></i> JavaScript</li>
-        <li><i class="fa-solid fa-circle"></i> HTML & CSS</li>
-        <li><i class="fa-solid fa-circle"></i> Git & GitHub</li>
-        <li><i class="fa-solid fa-circle"></i> MySQL</li>
-        <li><i class="fa-solid fa-circle"></i> Levantamento de Requisitos</li>
-        <li><i class="fa-solid fa-circle"></i> Fluxo Operacional</li>
-      </ul>
+      <div class="skills-title" id="out-skills-title">Competências</div>
+      <ul class="skills-list" id="out-skills-list">
+        </ul>
     </div>
 
-    <div class="qr-area">
-      <div id="qrcode" class="qr-box"></div>
-      <div class="qr-label">ACESSE O SITE</div>
-    </div>
-
+    <div class="qr-container" id="qr-dest">
+      </div>
   </div>
 </div>
 
 <script>
+function toggleEditor() {
+    const panel = document.getElementById('editorPanel');
+    panel.classList.toggle('active');
+}
 
-const urlLandingPage = "https://skleinschmidt.github.io/Picht24_02_26/";
+function updateStyles() {
+  const root = document.documentElement;
+  const bgColor = document.getElementById('cp-bg').value;
+  root.style.setProperty('--bg-color', bgColor);
+  root.style.setProperty('--accent-color', document.getElementById('cp-accent').value);
+  root.style.setProperty('--font-main', document.getElementById('sel-font').value);
+  
+  const layout = document.getElementById('verso-layout');
+  layout.style.flexDirection = document.getElementById('sel-align').value;
 
-new QRCode(document.getElementById("qrcode"), {
-    text: urlLandingPage,
-    width: 80,
-    height: 80,
-    colorDark: "#0B3C49",
-    colorLight: "#ffffff",
-    correctLevel: QRCode.CorrectLevel.H
-});
+  generateQRs(); 
+}
 
+function sync() {
+  document.getElementById('out-name').innerText = document.getElementById('in-name').value;
+  const listOut = document.getElementById('out-skills-list');
+  const items = document.getElementById('in-skills-list').value.split('\n');
+  
+  listOut.innerHTML = "";
+  items.forEach(item => {
+    if (item.trim() !== "") {
+      const li = document.createElement('li');
+      li.innerHTML = `<i class="fa-solid fa-circle"></i> ${item.trim()}`;
+      listOut.appendChild(li);
+    }
+  });
+}
+
+function generateQRs() {
+  const dest = document.getElementById('qr-dest');
+  dest.innerHTML = "";
+  const bgColor = document.getElementById('cp-bg').value;
+
+  const qrConfigs = [
+    { id: 'qr1-url', label: 'PORTFÓLIO' },
+    { id: 'qr2-url', label: 'LINKEDIN' }
+  ];
+
+  qrConfigs.forEach((config, index) => {
+    const url = document.getElementById(config.id).value;
+    if(url.trim() !== "") {
+      const div = document.createElement('div');
+      div.className = "qr-item";
+      div.innerHTML = `<div id="qr-code-${index}" class="qr-box"></div><div class="qr-label">${config.label}</div>`;
+      dest.appendChild(div);
+
+      new QRCode(document.getElementById(`qr-code-${index}`), {
+        text: url,
+        width: 60,
+        height: 60,
+        colorDark: bgColor, 
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H
+      });
+    }
+  });
+}
+
+window.onload = () => { sync(); updateStyles(); };
 </script>
-
 </body>
 </html>
